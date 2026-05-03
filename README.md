@@ -1,140 +1,63 @@
-\# Rules vs Skills
+# Rules vs Skills
 
+Rules 和 Skills 是两种不同但都用于指导 AI agent 行为或工作流的机制。
 
+## 一、Rules（规则）
 
-Rules和Skills是两种不同但都用于指导AI agent行为或工作流的机制。
+- **定义：** 规则是项目特定的行为准则或配置，旨在自动应用于某个特定的代码仓库或项目。它们通常用于强制执行编码标准、最佳实践或特定工作流。
+- **示例文件：** `.cursor/rules/karpathy-guidelines.mdc`
+- **GitHub 链接：** `https://github.com/forrestchang/andrej-karpathy-skills/tree/main/.cursor/rules`
 
+- **特点：**
+  - **作用域：** 规则是针对特定项目配置的。
+  - **自动应用：** 一旦在项目中配置（例如，规则文件提交到 `.cursor/rules/` 目录中并设置 `alwaysApply: true`），它们就会自动生效，无需额外手动激活。
+  - **共享性：** 规则可以随项目一起提交到版本控制系统（如 Git），使得团队成员在克隆项目后也能自动获得相同的行为准则。
 
+- **如何使用 Rules：**
 
+  1. **在当前仓库中使用：**
+     - 只需在 Cursor 中打开包含 `.cursor/rules/` 文件夹的项目。
+     - 如果规则文件（如 `karpathy-guidelines.mdc`）已提交到该目录并配置为 `alwaysApply: true`，Cursor 会自动应用这些准则。
+     - 您可以在 Cursor 的 **设置 → Rules** 中确认这些 rules 是否已加载。
 
+  2. **在其他项目中使用：**
+     - 将源项目的 `.cursor/rules/karpathy-guidelines.mdc` 文件复制到目标项目的 `.cursor/rules/` 目录中。
+     - 如果这些文件夹不存在，需要手动创建它们。
+     - 然后，可以根据目标项目的具体需求，调整或合并这些规则。
 
-\## 一、Rules（规则）
+## 二、Skills（技能）
 
+- **定义：** 技能是可重用的个人 agent 能力或知识库，通常不是项目特有的，而是用户个人在不同项目之间可以调用的辅助工具。它们通常包含特定的指令、代码片段或解决问题的方法。
+- **示例文件：** `skills/karpathy-guidelines/SKILL.md`
+- **实际安装路径：** `~/.cursor/skills/karpathy-guidelines/SKILL.md`
+- **GitHub 链接：** `https://github.com/forrestchang/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines`
 
+- **特点：**
+  - **作用域：** Skills 通常存储在用户的个人配置目录中（例如 `~/.cursor/skills`），这意味着它们对该用户的所有项目都可用。
+  - **可重用性：** 一旦安装，用户可以在任何项目中调用或应用这些 skills，而不仅仅是特定项目。
+  - **调用方式：** Skills 可能不像 rules 那样自动应用，而是需要用户或 AI agent 在需要时明确调用或通过某种配置进行集成。
 
-\- \*\*定义：\*\* 规则是项目特定的行为准则或配置，旨在自动应用于某个特定的代码仓库或项目。它们通常用于强制执行编码标准、最佳实践或特定工作流。
+- **如何使用 Skills：**
 
-\- \*\*示例文件：\*\* `.cursor/rules/karpathy-guidelines.mdc`
+  1. **作为个人 Skills 安装：**
+     - 将源仓库中的 `skills/karpathy-guidelines/SKILL.md` 文件复制或创建符号链接到您的个人技能目录 `~/.cursor/skills/` 下。
+     - 您可以根据自己对其他 skills 的组织方式来安排其目录结构和布局。
 
-\- github链接： `https://github.com/forrestchang/andrej-karpathy-skills/tree/main/.cursor/rules`
+  2. **通过插件使用（针对 Claude Code 或其他工具）：**
+     - 对于某些集成开发环境或工具（如 Claude Code），可能存在插件机制，通过插件市场安装插件后，该插件会公开仓库中的 skills（例如，本例中插件会暴露 `SKILL.md` 中的内容），供用户在对应的环境中调用和使用。
 
-\- \*\*特点：\*\*
+## 三、区别总结
 
+- **作用域和目标：**
+  - **Rules：** 是项目级别的，旨在为特定项目强制执行自动化准则，确保团队一致性。
+  - **Skills：** 是个人级别的，旨在为用户提供可重用的工具或知识，以提高跨项目的工作效率。
 
+- **存储位置：**
+  - **Rules：** 文件存储在项目仓库的 `.cursor/rules/` 目录中，随项目一起版本控制。
+  - **Skills：** 文件通常存储在用户本地的 `~/.cursor/skills/` 目录中，是用户个人配置的一部分。
 
-&#x20;   - \*\*作用域：\*\* 规则是针对特定项目配置的。
+- **应用方式：**
+  - **Rules：** 一旦配置好，在打开对应项目时会自动应用。
+  - **Skills：** 通常需要用户显式调用，或者由 AI 代理根据上下文进行选择性使用。
 
-&#x20;   - \*\*自动应用：\*\* 一旦在项目中配置（例如，规则文件提交到 `.cursor/rules/` 目录中并设置 `alwaysApply: true`），它们就会自动生效，无需额外手动激活。
-
-&#x20;   - \*\*共享性：\*\* 规则可以随项目一起提交到版本控制系统（如 Git），使得团队成员在克隆项目后也能自动获得相同的行为准则。
-
-
-
-\- \*\*如何使用rules：\*\*
-
-
-
-&#x20;   1. \*\*在当前仓库中使用：\*\*
-
-
-
-&#x20;       - 只需在 Cursor 中打开包含 `.cursor/rules/` 文件夹的项目。
-
-&#x20;       - 如果规则文件（如 `karpathy-guidelines.mdc`）已提交到该目录并配置为 `alwaysApply: true`，Cursor 会自动应用这些准则。
-
-&#x20;       - 您可以在 Cursor 的 \*\*设置 → rules\*\*中确认这些rules是否已加载。
-
-
-
-&#x20;   2. \*\*在其他项目中使用：\*\*
-
-
-
-&#x20;       - 将源项目的 `.cursor/rules/karpathy-guidelines.mdc` 文件复制到目标项目的 `.cursor/rules/` 目录中。
-
-&#x20;       - 如果这些文件夹不存在，需要手动创建它们。
-
-&#x20;       - 然后，可以根据目标项目的具体需求，调整或合并这些规则。
-
-
-
-
-
-\## 二、Skills（技能）
-
-
-
-\- \*\*定义：\*\* 技能是可重用的个人agent能力或知识库，通常不是项目特有的，而是用户个人在不同项目之间可以调用的辅助工具。它们通常包含特定的指令、代码片段或解决问题的方法。
-
-\- \*\*示例文件：\*\* `skills/karpathy-guidelines/SKILL.md` (当安装到个人目录后，实际路径通常是 `\~/.cursor/skills/karpathy-guidelines/SKILL.md`)，github链接： `https://github.com/forrestchang/andrej-karpathy-skills/tree/main/skills/karpathy-guidelines`
-
-
-
-\- \*\*特点：\*\*
-
-
-
-&#x20;   - \*\*作用域：\*\* skills通常存储在用户的个人配置目录中（例如 `\~/.cursor/skills`），这意味着它们对该用户的所有项目都可用。
-
-&#x20;   - \*\*可重用性：\*\* 一旦安装，用户可以在任何项目中调用或应用这些skills，而不仅仅是特定项目。
-
-&#x20;   - \*\*调用方式：\*\* skills可能不像rules那样自动应用，而是需要用户或 AI agent在需要时明确调用或通过某种配置进行集成。
-
-
-
-\- \*\*如何使用skills：\*\*
-
-
-
-&#x20;   1. \*\*作为个人skills安装：\*\*
-
-
-
-&#x20;       - 将源仓库中的 `skills/karpathy-guidelines/SKILL.md` 文件复制或创建符号链接到您的个人技能目录 `\~/.cursor/skills/` 下。
-
-&#x20;       - 您可以根据自己对其他skills的组织方式来安排其目录结构和布局。
-
-
-
-&#x20;   2. \*\*通过插件使用 (针对 Claude Code 或其他工具)：\*\*
-
-
-
-&#x20;       - 对于某些集成开发环境或工具（如 Claude Code），可能存在插件机制，通过插件市场安装插件后，该插件会公开仓库中的skills（例如，本例中插件会暴露 `SKILL.md` 中的内容），供用户在对应的环境中调用和使用。
-
-
-
-
-
-\## 三、区别总结：
-
-
-
-\- \*\*作用域和目标：\*\*
-
-&#x20;   - \*\*规则rules\*\* 是项目级别的，旨在为特定项目强制执行自动化准则，确保团队一致性。
-
-&#x20;   - \*\*技能skills\*\* 是个人级别的，旨在为用户提供可重用的工具或知识，以提高跨项目的工作效率。
-
-
-
-\- \*\*存储位置：\*\*
-
-&#x20;   - \*\*规则rules\*\* 文件存储在项目仓库的 `.cursor/rules/` 目录中，随项目一起版本控制。
-
-&#x20;   - \*\*技能skills\*\* 文件通常存储在用户本地的 `\~/.cursor/skills/` 目录中，是用户个人配置的一部分。
-
-
-
-\- \*\*应用方式：\*\*
-
-&#x20;   - \*\*规则\*\* 一旦配置好，在打开对应项目时会自动应用。
-
-&#x20;   - \*\*技能\*\* 通常需要用户显式调用，或者由 AI 代理根据上下文进行选择性使用。
-
-
-
-
-
-\*\*总结：\*\* 规则是项目的自动行为，而技能是您的个人工具箱。
-
+**总结：** 规则是项目的自动行为，而技能是您的个人工具箱。
